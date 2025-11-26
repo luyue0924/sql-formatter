@@ -71,6 +71,11 @@
       "enum": ["before", "after"],
       "default": "before"
     },
+    "commaPosition": {
+      "description": "Decides comma placement before or after column names.",
+      "enum": ["before", "after"],
+      "default": "after"
+    },
     "newlineBeforeSemicolon": {
       "description": "Whether to place query separator (;) on a separate line.",
       "type": "boolean",

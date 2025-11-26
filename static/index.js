@@ -12,6 +12,7 @@ const attachFormat = () => {
   const identifierCase = document.getElementById('identifierCase');
   const indentStyle = document.getElementById('indentStyle');
   const logicalOperatorNewline = document.getElementById('logicalOperatorNewline');
+  const commaPosition = document.getElementById('commaPosition');
   const expressionWidth = document.getElementById('expressionWidth');
   const lineBetweenQueries = document.getElementById('lineBetweenQueries');
   const denseOperators = document.getElementById('denseOperators');
@@ -42,10 +43,19 @@ const attachFormat = () => {
         indentStyle: indentStyle.options[indentStyle.selectedIndex].value,
         logicalOperatorNewline:
           logicalOperatorNewline.options[logicalOperatorNewline.selectedIndex].value,
+        commaPosition: commaPosition.options[commaPosition.selectedIndex].value,
         expressionWidth: expressionWidth.value,
         lineBetweenQueries: lineBetweenQueries.value,
         denseOperators: denseOperators.checked,
         newlineBeforeSemicolon: newlineBeforeSemicolon.checked,
+        // 支持常见的模板语法
+        paramTypes: {
+          custom: [
+            { regex: String.raw`\[\[[\s\S]*?\]\]` },     // [[conditional block]]
+            { regex: String.raw`\{\{[a-zA-Z0-9_]+\}\}` }, // {{variable}}
+            { regex: String.raw`\{[a-zA-Z0-9_]+\}` },     // {variable}
+          ],
+        },
       };
       showOutput(sqlFormatter.format(input.value, config));
     } catch (e) {
@@ -79,6 +89,7 @@ const attachFormat = () => {
     identifierCase,
     indentStyle,
     logicalOperatorNewline,
+    commaPosition,
     expressionWidth,
     lineBetweenQueries,
     denseOperators,
